@@ -1,6 +1,11 @@
 package mvc_02_conc;
 
 
+/**
+ * 
+ * Example of controller with its own control flow
+ * 
+ */
 public class MyAutonomousController extends Thread {
 	
 	private ModelInterface model;

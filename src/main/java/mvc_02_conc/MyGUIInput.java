@@ -13,13 +13,13 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
-class MyInputUI implements UserInputSource {
+class MyGUIInput implements UserInputSource {
 
 	private List<UserInputObserver> observers;
 
 	private MyFrame frame;
 	
-	public MyInputUI() {		
+	public MyGUIInput() {		
 		observers = new ArrayList<UserInputObserver>();		
 	    frame = new MyFrame();
 	}

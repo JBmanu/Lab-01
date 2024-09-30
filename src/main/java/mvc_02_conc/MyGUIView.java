@@ -3,28 +3,32 @@ package mvc_02_conc;
 import java.awt.BorderLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.*;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
-class MyView implements ModelObserver {
+class MyGUIView implements ModelObserver {
 
 	private ModelObserverSource model;
 	private MyFrame frame;
 	
-	public MyView(ModelObserverSource model) {		
-		this.model = model;		
-	    model.addObserver(this);	    
-	    frame = new MyFrame(model.getState());
+	public MyGUIView(ModelObserverSource model) {		
+	    frame = new MyFrame();
 	}
 
 	public void notifyModelUpdated() {
 		log("model updated => updating the view");
 		frame.updateView(model.getState());
 	}
-		
+
+	@Override
+	public void attachToModel(ModelObserverSource source) {
+		this.model = source;		
+	    model.addObserver(this);	    
+	    frame.updateView(model.getState());
+	}
+
 	public void display() {
 		SwingUtilities.invokeLater(() -> {
 			frame.setVisible(true);
@@ -39,14 +43,14 @@ class MyView implements ModelObserver {
 
 		private JTextField state;
 
-		public MyFrame(int initState) {
+		public MyFrame() {
 			super("My View");
 			
 			setSize(300, 70);
 			setResizable(false);
 			
 			state = new JTextField(10);
-			state.setText("" + initState);
+			state.setText("");
 
 			JPanel panel = new JPanel();
 			panel.add(state);
@@ -71,5 +75,6 @@ class MyView implements ModelObserver {
 			}
 		}
 	}
+
 	
 }
